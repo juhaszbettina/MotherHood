@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using vlala.Models;
+using MotherHood.Models;
 
-namespace vlala.Controllers
+namespace MotherHood.Controllers
 {
     public class HomeController : Controller
     {

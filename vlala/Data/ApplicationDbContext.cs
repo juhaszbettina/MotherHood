@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace vlala.Data
+namespace MotherHood.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

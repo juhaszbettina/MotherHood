@@ -1,6 +1,6 @@
 using System;
 
-namespace vlala.Models
+namespace MotherHood.Models
 {
     public class ErrorViewModel
     {
