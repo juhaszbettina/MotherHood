@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MotherHood.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MotherHood.Controllers
 {
@@ -18,6 +19,7 @@ namespace MotherHood.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
