@@ -12,7 +12,8 @@ namespace MotherHood.Models
         [Display(Name = "Társkereső")]
         Tarskereso,
         Babysitter,
-        Óvoda,
+        [Display(Name = "Óvoda")]
+        Ovoda,
         Iskola,
     }
 }
