@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MotherHood.Models;
 
 namespace MotherHood.Data
 {
@@ -26,5 +27,6 @@ namespace MotherHood.Data
                 .HasMaxLength(250);
 
         }
+     public DbSet<MotherHood.Models.Message> Message { get; set; }
     }
 }

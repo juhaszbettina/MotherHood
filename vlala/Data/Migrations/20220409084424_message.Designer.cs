@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotherHood.Data;
 
 namespace MotherHood.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220409084424_message")]
+    partial class message
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +240,7 @@ namespace MotherHood.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Szerzo")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tema")
                         .HasColumnType("nvarchar(max)");
@@ -247,8 +249,6 @@ namespace MotherHood.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Szerzo");
 
                     b.ToTable("Message");
                 });
@@ -302,15 +302,6 @@ namespace MotherHood.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MotherHood.Models.Message", b =>
-                {
-                    b.HasOne("MotherHood.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("Szerzo");
-
-                    b.Navigation("ApplicationUser");
                 });
 #pragma warning restore 612, 618
         }
