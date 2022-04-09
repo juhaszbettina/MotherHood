@@ -11,7 +11,7 @@ namespace MotherHood.Models
     public class Message
     {
         public string Uzenet  { get; set; }
-        public Tema Tema { get; set; }
+        public virtual Tema Tema { get; set; }
         public int Id { get; set; }
         [Display(Name = "Cím")]
         public string Cim { get; set; }

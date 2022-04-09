@@ -32,6 +32,13 @@ namespace MotherHood.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Tema(Tema tema)
+        {
+            var applicationDbContext = _context.Message.Include(m => m.ApplicationUser).Where(message=> tema == message.Tema );
+            ViewData["loggedInUserId"] = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return View("index", await applicationDbContext.ToListAsync());
+        }
+
         // GET: Messages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
