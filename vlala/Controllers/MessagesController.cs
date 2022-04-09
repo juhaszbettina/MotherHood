@@ -72,7 +72,7 @@ namespace MotherHood.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Szerzo"] = new SelectList(_context.Users, "Id", "Id", message.Szerzo);
+            
             return View(message);
         }
 
@@ -103,13 +103,13 @@ namespace MotherHood.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Uzenet,Tema,Id,Cim,Szerzo")] Message message)
+        public async Task<IActionResult> Edit(int id, [Bind("Uzenet,Tema,Id,Cim")] Message message)
         {
             if (id != message.Id)
             {
                 return NotFound();
             }
-
+            message.Szerzo = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (ModelState.IsValid)
             {
                 try
@@ -130,7 +130,7 @@ namespace MotherHood.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Szerzo"] = new SelectList(_context.Users, "Id", "Id", message.Szerzo);
+           
             return View(message);
         }
 
