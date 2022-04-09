@@ -54,6 +54,7 @@ namespace MotherHood.Controllers
         // GET: Messages/Create
         public IActionResult Create()
         {
+          
             return View();
         }
 

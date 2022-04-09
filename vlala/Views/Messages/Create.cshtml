@@ -12,11 +12,17 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Tema" class="control-label"></label>
-                <input asp-for="Tema" class="form-control" />
-                <span asp-validation-for="Tema" class="text-danger"></span>
-            </div>
+
+            @*<div class="form-group">
+                <select asp-for="Tema" asp-items="Html.GetEnumSelectList<Tema>()">
+                    <option selected="selected" value="">Válassz témát...</option>
+                </select>
+                <span asp-validation-for="Tema" class="text-danger" />
+            </div>*@
+
+            @Html.DropDownList("Tema", Html.GetEnumSelectList<Tema>(), "Select", new { @class = "form-control" })
+
+
             <div class="form-group">
                 <label asp-for="Cim" class="control-label"></label>
                 <input asp-for="Cim" class="form-control" />
@@ -27,7 +33,7 @@
                 <textarea asp-for="Uzenet" class="form-control">  </textarea>
                 <span asp-validation-for="Uzenet" class="text-danger"></span>
             </div>
-          
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
