@@ -24,7 +24,9 @@ namespace MotherHood.Models
         
         [ForeignKey("ApplicationUser")]
         public string Szerzo { get; set; }
-        
+
+        public virtual List<Comment> Comment { get; set; }
+
         [Display(Name = "Szerző")]
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

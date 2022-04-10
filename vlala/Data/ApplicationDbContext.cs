@@ -28,5 +28,6 @@ namespace MotherHood.Data
 
         }
      public DbSet<MotherHood.Models.Message> Message { get; set; }
+     public DbSet<MotherHood.Models.Comment> Comment { get; set; }
     }
 }

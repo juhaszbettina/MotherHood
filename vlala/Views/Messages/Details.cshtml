@@ -1,4 +1,5 @@
-﻿@model MotherHood.Models.Message
+﻿@model MotherHood.Models.MessageComentsViewModel
+
 
 @{
     ViewData["Title"] = "Details";
@@ -9,34 +10,65 @@
 <div>
     <h4>Message</h4>
     <hr />
+
+
+
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Uzenet)
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.message.Uzenet)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Uzenet)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.message.Uzenet)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tema)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.message.Tema)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tema)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.message.Tema)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cim)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.message.Cim)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cim)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.message.Cim)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUser)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.message.ApplicationUser)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.message.ApplicationUser.Id)
         </dd>
     </dl>
 </div>
+
+<h5>Hozzászólások</h5>
+<div class="container">
+    @if (Model.message.Comment != null)
+    {
+        @foreach (Comment comment in Model.message.Comment)
+        {
+            <div class="row">
+                <div class="col-12 border mb-3">
+                    @comment.Szoveg
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+<form asp-controller="Comments" asp-action="Create">
+
+    <div class="form-group">
+        <label asp-for="Szoveg" class="control-label"></label>
+        <textarea asp-for="Szoveg" class="form-control"> </textarea>
+        <span asp-validation-for="Szoveg" class="text-danger"></span>
+        <input type="hidden" asp-for="MessageId" value="@Model.message.Id" />
+    </div>
+    <input type="submit" class="btn btn-primary" value="Küldés" />
+</form>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

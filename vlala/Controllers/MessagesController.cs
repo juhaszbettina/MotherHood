@@ -49,13 +49,18 @@ namespace MotherHood.Controllers
 
             var message = await _context.Message
                 .Include(m => m.ApplicationUser)
+                .Include(m => m.Comment)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
                 return NotFound();
             }
 
-            return View(message);
+            MessageComentsViewModel messageComentsViewModel = new MessageComentsViewModel();
+            messageComentsViewModel.message = message;
+            messageComentsViewModel.MessageId = message.Id;
+            
+            return View(messageComentsViewModel);
         }
 
         // GET: Messages/Create
