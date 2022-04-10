@@ -25,5 +25,6 @@ namespace MotherHood.Models
         public int MessageId { get; set; }
         public Message Message { get; set; }
 
+   
     }
 }

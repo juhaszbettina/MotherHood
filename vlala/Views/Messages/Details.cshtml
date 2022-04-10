@@ -5,42 +5,18 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Üzenet</h1>
 
-<div>
-    <h4>Message</h4>
-    <hr />
+<div class="mb-5">
+    <h5>Téma: @Html.DisplayFor( m => m.message.Tema) </h5>
+    <h4 class="mb-3">@Model.message.Cim</h4>
 
+    <div class="">
+        @Model.message.Uzenet
+    </div>
 
-
-    <dl class="row">
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.message.Uzenet)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.message.Uzenet)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.message.Tema)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.message.Tema)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.message.Cim)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.message.Cim)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.message.ApplicationUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.message.ApplicationUser.Id)
-        </dd>
-    </dl>
 </div>
+<hr />
 
 <h5>Hozzászólások</h5>
 <div class="container">
@@ -48,12 +24,22 @@
     {
         @foreach (Comment comment in Model.message.Comment)
         {
-            <div class="row">
-                <div class="col-12 border mb-3">
+            <div class="row mt-3">
+                <div class="col-12 p-0 font-weight-bold">
+                    @comment.ApplicationUser.firstName
+                    @comment.ApplicationUser.lastName:
+                </div>
+                <div class="col-12 border p-3">
                     @comment.Szoveg
                 </div>
+
+                <div class="col-2 offset-10">
+                    @comment.Idopont
+                </div>
+
             </div>
         }
+
     }
 
 </div>

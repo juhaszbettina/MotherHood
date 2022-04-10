@@ -48,8 +48,8 @@ namespace MotherHood.Controllers
             }
 
             var message = await _context.Message
-                .Include(m => m.ApplicationUser)
                 .Include(m => m.Comment)
+                .ThenInclude(comment => comment.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
