@@ -11,10 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MotherHood.Data;
-
+using MotherHood.Models;
 
 namespace MotherHood.Areas.Identity.Pages.Account
 {
@@ -25,17 +26,20 @@ namespace MotherHood.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, 
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -44,6 +48,7 @@ namespace MotherHood.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public List<SelectListItem> MegyeLista { get; set; }
 
         public class InputModel
         {
@@ -72,10 +77,20 @@ namespace MotherHood.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
+            [Required]
+            [Display(Name = "Születési év")]
+            public DateTime SzuletesiEv { get; set; }
+
+            [Required]
+            [Display(Name = "Megye")]
+            public int MegyeId { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            List<Megye> megyelista = _context.Megye.ToList();
+            MegyeLista = megyelista.Select(x => new SelectListItem() { Text = x.Nev, Value = x.Id.ToString() }).ToList();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -86,7 +101,7 @@ namespace MotherHood.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, firstName = Input.FistName, lastName = Input.LastName };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, firstName = Input.FistName, lastName = Input.LastName, MegyeId = Input.MegyeId };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
