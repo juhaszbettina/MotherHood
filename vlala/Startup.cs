@@ -33,13 +33,15 @@ namespace MotherHood
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -60,6 +62,8 @@ namespace MotherHood
             app.UseAuthentication();
             app.UseAuthorization();
 
+            JogosultsagokBeallitasa(serviceProvider).Wait();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -67,6 +71,41 @@ namespace MotherHood
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private async Task JogosultsagokBeallitasa(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var vanUser = await RoleManager.RoleExistsAsync("User");
+            if (!vanUser)
+            {
+                IdentityRole szerepkor = new IdentityRole("User");
+                await RoleManager.CreateAsync(szerepkor);
+            }
+            var vanAdmin = await RoleManager.RoleExistsAsync("Admin");
+            if (!vanAdmin)
+            {
+                IdentityRole szerepkor = new IdentityRole("Admin");
+                await RoleManager.CreateAsync(szerepkor);
+            }
+            var vanSuperAdmin = await RoleManager.RoleExistsAsync("SuperAdmin");
+            if (!vanSuperAdmin)
+            {
+                IdentityRole szerepkor = new IdentityRole("SuperAdmin");
+                await RoleManager.CreateAsync(szerepkor);
+            }
+
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            ApplicationUser Sadmin = await userManager.FindByNameAsync("admin@admin.com");
+            if (Sadmin == null)
+            {
+                var felhasznalo = new ApplicationUser { UserName = "admin@admin.com", Email = "admin@admin.com", EmailConfirmed = true, LockoutEnabled = false, firstName="admin", lastName = "super", MegyeId = 19, SzuletesiEv=DateTime.Parse("1995-09-24")};
+                var letre = await userManager.CreateAsync(felhasznalo, "Almafa13;");
+                if (letre.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(felhasznalo, "SuperAdmin");
+                }
+            }
         }
     }
 }

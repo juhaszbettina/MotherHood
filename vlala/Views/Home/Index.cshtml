@@ -58,7 +58,7 @@
 <div class="card-deck">
     @foreach (var user in Model.applicationUsers)
     {
-        <a asp-action="Details" asp-route-id="@user.Id" class="card">
+        <a asp-action="Details" asp-controller="users" asp-route-id="@user.Id" class="card">
             <div class="card-body row">
                 <div class="col-12">
                     @user.Email

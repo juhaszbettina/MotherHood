@@ -154,9 +154,10 @@ namespace MotherHood.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var comment = await _context.Comment.FindAsync(id);
+            var messageId = comment.MessageId;
             _context.Comment.Remove(comment);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Messages", new { id = messageId });
         }
 
         private bool CommentExists(int id)

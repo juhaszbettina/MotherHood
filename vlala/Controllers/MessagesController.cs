@@ -17,11 +17,16 @@ namespace MotherHood.Controllers
     public class MessagesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public MessagesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public MessagesController(ApplicationDbContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Messages
@@ -48,6 +53,7 @@ namespace MotherHood.Controllers
             }
 
             var message = await _context.Message
+                .Include(m => m.ApplicationUser)
                 .Include(m => m.Comment)
                 .ThenInclude(comment => comment.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -103,7 +109,7 @@ namespace MotherHood.Controllers
                 return NotFound();
             }
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId != message.Szerzo)
+            if (userId != message.Szerzo || User.IsInRole("SuperAdmin"))
             {
                 return NotFound();
             }

@@ -39,6 +39,10 @@
 
                 <div class="col-2 offset-10">
                     @comment.Idopont
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <a asp-action="Delete" asp-controller="comments" asp-route-id="@comment.Id">Delete</a>
+                    }
                 </div>
 
             </div>
