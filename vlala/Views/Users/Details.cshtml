@@ -1,0 +1,18 @@
+﻿@model MotherHood.Models.ApplicationUser
+
+
+@{
+    ViewData["Title"] = "Felhasználó adatai";
+}
+
+<h1>Felhasználó adatai</h1>
+<div>
+    <a asp-action="Index">Vissza a listára</a>
+</div>
+
+<div>
+    <h5>@Model.firstName @Model.lastName</h5>
+    <p>email: @Model.Email</p>
+    <p>megye: @Model.Megye.Nev</p>
+    <p>Születési év:  @Html.DisplayFor(m => m.SzuletesiEv)</p>
+</div>

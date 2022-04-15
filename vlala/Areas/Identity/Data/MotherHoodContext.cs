@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MotherHood.Data;
+using MotherHood.Models;
 
 namespace MotherHood.Data
 {

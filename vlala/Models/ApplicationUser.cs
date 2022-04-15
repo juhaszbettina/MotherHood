@@ -2,11 +2,12 @@
 using MotherHood.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MotherHood.Data
+namespace MotherHood.Models
 {
     public class ApplicationUser : IdentityUser
 
@@ -14,6 +15,8 @@ namespace MotherHood.Data
         public string firstName { get; set; }
         public string lastName { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime SzuletesiEv { get; set; }
 
         [ForeignKey("Megye")]
