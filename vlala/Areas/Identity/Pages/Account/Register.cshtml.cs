@@ -101,7 +101,7 @@ namespace MotherHood.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, firstName = Input.FistName, lastName = Input.LastName, MegyeId = Input.MegyeId };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, firstName = Input.FistName, lastName = Input.LastName, MegyeId = Input.MegyeId, SzuletesiEv =Input.SzuletesiEv };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
