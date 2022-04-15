@@ -1,9 +1,40 @@
-﻿@{
+﻿@model MotherHood.Models.UsersSearchViewModel
+@{
     ViewData["Title"] = "Home Page";
 
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<form asp-action="Index" class="mb-5 col-6 offset-3">
+    <div class="mb-3">
+        <input asp-for="keresNev" type="text" class="form-control" placeholder="Név...">
+    </div>
+    <div class="mb-3">
+        <select asp-for="keresMegye" asp-items="@(new SelectList(Model.Megye, "Value", "Text"))" class="form-control">
+            <option value="">Megyére szűrés</option>
+        </select>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary btn-block">Keres</button>
+     </div>
+</form>
+
+<div class="card-deck">
+    @foreach (var user in Model.applicationUsers)
+    {
+        <a asp-action="Details" asp-route-id="@user.Id" class="card">
+            <div class="card-body row">
+                <div class="col-12">
+                    @user.Email
+                </div>
+                <div class="col-12">
+                    @user.lastName @user.firstName
+                </div>
+                <div class="col-12">
+                    @user.Megye.Nev
+                </div>
+            </div>
+        </a>
+
+    }
 </div>
