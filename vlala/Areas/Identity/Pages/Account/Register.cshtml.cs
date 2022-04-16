@@ -60,21 +60,21 @@ namespace MotherHood.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Jelszó")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Jelszó megerősítése")]
+            [Compare("Password", ErrorMessage = "A jelszavaknak egyezniük kell!")]
             public string ConfirmPassword { get; set; }
 
 
             [Required]
-            [Display(Name = "First Name")]
+            [Display(Name = "Keresztnév")]
             public string FistName { get; set; }
 
             [Required]
-            [Display(Name = "Last Name")]
+            [Display(Name = "Vezetéknév")]
             public string LastName { get; set; }
 
             [Required]
