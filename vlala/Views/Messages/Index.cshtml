@@ -9,62 +9,38 @@
 
 <h1>Beszélgetések</h1>
 
-<p>
-    <a asp-action="Create">Új beszélgetés</a>
+<p class="text-end">
+    <a asp-action="Create" class="btn btn-primary">Új beszélgetés indítása</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cim)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Tema)
-            </th>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">  @Html.DisplayFor(modelItem => item.Cim)</h5>
+            <div>
+                @if (ViewBag.loggedInUserId == item.ApplicationUser.Id)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Szerkesztés</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
 
+                }
 
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cim)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tema)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.firstName)
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.lastName)
-
-                </td>
-                <td>
-
-                    @if (ViewBag.loggedInUserId == item.ApplicationUser.Id)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-
-                    }
-
-                    @if (User.IsInRole("SuperAdmin"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-
-
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                @if (User.IsInRole("SuperAdmin"))
+                {
+            <a asp-action="Delete" asp-route-id="@item.Id">Törlés</a>
+                }
+            </div>
+        </div>
+        <p class="mb-1"> @item.Uzenet.Substring(1, item.Uzenet.Length > 100 ? 100 : item.Uzenet.Length - 1) ...</p>
+        <p>
+            <small class="text-muted">
+                @Html.DisplayFor(modelItem => item.ApplicationUser.firstName)
+                @Html.DisplayFor(modelItem => item.ApplicationUser.lastName)
+            </small>
+        </p>
+        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary" aria-current="true">Tovább</a>
+    </div>
+    }
+</div>

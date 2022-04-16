@@ -1,44 +1,39 @@
 ﻿@model MotherHood.Models.Message
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Szerkesztés";
 }
 
-<h1>Edit</h1>
+<h1>Szerkesztés</h1>
 
-<h4>Message</h4>
+<h4>Üzenet</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12 offset-md-2 col-md-8 col-lg-6 offset-lg-3">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Tema" class="control-label"></label>
-                <input asp-for="Tema" class="form-control" />
-                <span asp-validation-for="Tema" class="text-danger"></span>
-            </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Cim" class="control-label"></label>
                 <input asp-for="Cim" class="form-control" />
                 <span asp-validation-for="Cim" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-1">
                 <label asp-for="Uzenet" class="control-label"></label>
-                <textarea asp-for="Uzenet" class="form-control"> </textarea>
+                <textarea asp-for="Uzenet" class="form-control"  style="height: 150px"> </textarea>
                 <span asp-validation-for="Uzenet" class="text-danger"></span>
             </div>
 
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Mentés" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Mégse</a>
 </div>
 
 @section Scripts {
