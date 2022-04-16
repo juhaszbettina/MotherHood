@@ -8,9 +8,9 @@
 <h1>Üzenet</h1>
 
 <div class="mb-5">
-    <h5>Téma: @Html.DisplayFor(m => m.message.Tema) </h5>
+    <p>Téma: @Html.DisplayFor(m => m.message.Tema) </p>
     <h5>
-        Küldő: 
+        Szerző: 
         <a class="col-12 p-0 font-weight-bold" asp-controller="users" asp-action="Details" asp-route-id="@Model.message.ApplicationUser.Id"> @Model.message.ApplicationUser.lastName @Model.message.ApplicationUser.firstName </a>
     </h5>
     <h4 class="mb-3">@Model.message.Cim</h4>
@@ -29,9 +29,9 @@
         @foreach (Comment comment in Model.message.Comment)
         {
             <div class="row mt-3">
-                <a class="col-12 p-0 font-weight-bold"  asp-controller="users" asp-action="Details" asp-route-id="@comment.ApplicationUser.Id" >
-                    @comment.ApplicationUser.firstName
-                    @comment.ApplicationUser.lastName:
+                <a class="col-12 p-0 font-weight-bold" asp-controller="users" asp-action="Details" asp-route-id="@comment.ApplicationUser.Id">
+                    @comment.ApplicationUser.lastName 
+                    @comment.ApplicationUser.firstName:
                 </a>
                 <div class="col-12 border p-3">
                     @comment.Szoveg
@@ -54,7 +54,7 @@
 
 <form asp-controller="Comments" asp-action="Create">
 
-    <div class="form-group">
+    <div class="form-group mb-2">
         <label asp-for="Szoveg" class="control-label"></label>
         <textarea asp-for="Szoveg" class="form-control"> </textarea>
         <span asp-validation-for="Szoveg" class="text-danger"></span>
@@ -64,5 +64,5 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Vissza</a>
 </div>

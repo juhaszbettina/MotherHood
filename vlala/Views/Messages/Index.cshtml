@@ -36,6 +36,11 @@
         <p class="mb-1"> @item.Uzenet.Substring(1, item.Uzenet.Length > 100 ? 100 : item.Uzenet.Length - 1) ...</p>
         <p>
             <small class="text-muted">
+                @Html.DisplayFor(modelItem => item.Tema)
+            </small>
+        </p>
+        <p>
+            <small class="text-muted"> Szerző: 
                 @Html.DisplayFor(modelItem => item.ApplicationUser.firstName)
                 @Html.DisplayFor(modelItem => item.ApplicationUser.lastName)
             </small>
