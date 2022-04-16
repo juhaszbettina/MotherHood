@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MotherHood.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,13 @@ namespace MotherHood
     {
         public static void Main(string[] args)
         {
+
+            var host = CreateHostBuilder(args).Build();
+            var scope = host.Services.CreateScope();
+            var service = scope.ServiceProvider;
+            SeedData.Initialize(service);
+            host.Run();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -22,5 +31,6 @@ namespace MotherHood
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MotherHood.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MotherHood.Models
 {
     public class Megye
     {

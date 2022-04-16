@@ -95,6 +95,7 @@ namespace MotherHood
                 await RoleManager.CreateAsync(szerepkor);
             }
 
+
             UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             ApplicationUser Sadmin = await userManager.FindByNameAsync("admin@admin.com");
             if (Sadmin == null)
