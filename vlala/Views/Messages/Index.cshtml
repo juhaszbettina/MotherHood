@@ -33,16 +33,17 @@
                 }
             </div>
         </div>
-        <p class="mb-1"> @item.Uzenet.Substring(1, item.Uzenet.Length > 100 ? 100 : item.Uzenet.Length - 1) ...</p>
+        <p class="mb-1"> @item.Uzenet.Substring(0, item.Uzenet.Length > 100 ? 100 : item.Uzenet.Length - 1) ...</p>
         <p>
             <small class="text-muted">
                 @Html.DisplayFor(modelItem => item.Tema)
             </small>
         </p>
         <p>
-            <small class="text-muted"> Szerző: 
+            <small class="text-muted">
+                Szerző:
+                @Html.DisplayFor(modelItem => item.ApplicationUser.lastName) 
                 @Html.DisplayFor(modelItem => item.ApplicationUser.firstName)
-                @Html.DisplayFor(modelItem => item.ApplicationUser.lastName)
             </small>
         </p>
         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary" aria-current="true">Tovább</a>

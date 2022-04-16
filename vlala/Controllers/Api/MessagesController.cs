@@ -12,47 +12,47 @@ namespace MotherHood.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiCommentsController : ControllerBase
+    public class MessagesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ApiCommentsController(ApplicationDbContext context)
+        public MessagesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/ApiComments
+        // GET: api/ApiMessages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessage()
         {
-            return await _context.Comment.ToListAsync();
+            return await _context.Message.ToListAsync();
         }
 
-        // GET: api/ApiComments/5
+        // GET: api/ApiMessages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(int id)
+        public async Task<ActionResult<Message>> GetMessage(int id)
         {
-            var comment = await _context.Comment.FindAsync(id);
+            var message = await _context.Message.FindAsync(id);
 
-            if (comment == null)
+            if (message == null)
             {
                 return NotFound();
             }
 
-            return comment;
+            return message;
         }
 
-        // PUT: api/ApiComments/5
+        // PUT: api/ApiMessages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(int id, Comment comment)
+        public async Task<IActionResult> PutMessage(int id, Message message)
         {
-            if (id != comment.Id)
+            if (id != message.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comment).State = EntityState.Modified;
+            _context.Entry(message).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace MotherHood.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CommentExists(id))
+                if (!MessageExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace MotherHood.Controllers.Api
             return NoContent();
         }
 
-        // POST: api/ApiComments
+        // POST: api/ApiMessages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Message>> PostMessage(Message message)
         {
-            _context.Comment.Add(comment);
+            _context.Message.Add(message);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
         }
 
-        // DELETE: api/ApiComments/5
+        // DELETE: api/ApiMessages/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment(int id)
+        public async Task<IActionResult> DeleteMessage(int id)
         {
-            var comment = await _context.Comment.FindAsync(id);
-            if (comment == null)
+            var message = await _context.Message.FindAsync(id);
+            if (message == null)
             {
                 return NotFound();
             }
 
-            _context.Comment.Remove(comment);
+            _context.Message.Remove(message);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CommentExists(int id)
+        private bool MessageExists(int id)
         {
-            return _context.Comment.Any(e => e.Id == id);
+            return _context.Message.Any(e => e.Id == id);
         }
     }
 }
