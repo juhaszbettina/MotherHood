@@ -134,6 +134,9 @@ namespace MotherHood.Areas.Identity.Pages.Account
                 }
             }
 
+
+            List<Megye> megyelista = _context.Megye.ToList();
+            MegyeLista = megyelista.Select(x => new SelectListItem() { Text = x.Nev, Value = x.Id.ToString() }).ToList();
             // If we got this far, something failed, redisplay form
             return Page();
         }
